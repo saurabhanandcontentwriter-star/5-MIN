@@ -16,6 +16,7 @@ import {
   Terminal,
   User,
   LogOut,
+  Users,
 } from 'lucide-react';
 import { motion } from 'motion/react';
 
@@ -252,6 +253,24 @@ export const Header: React.FC<HeaderProps> = ({
           </button>
 
           <button
+            id="nav-tab-gdg-events"
+            onClick={() => handleTabChange('gdg-events')}
+            className={`px-3 py-1.5 rounded-lg text-xs font-medium transition flex items-center gap-1.5 ${
+              currentActiveTab === 'gdg-events'
+                ? isDark
+                  ? 'bg-zinc-800 text-white shadow-sm'
+                  : 'bg-white text-zinc-900 shadow-sm'
+                : 'text-zinc-400 hover:text-zinc-200'
+            }`}
+          >
+            <Users className="w-3.5 h-3.5 text-blue-400" />
+            <span>GDG & Events</span>
+            <span className="px-1.5 py-0.2 rounded bg-blue-500/20 text-blue-400 text-[10px] font-mono font-bold">
+              India
+            </span>
+          </button>
+
+          <button
             id="nav-tab-foryou"
             onClick={() => handleTabChange('personalized')}
             className={`px-3 py-1.5 rounded-lg text-xs font-medium transition flex items-center gap-1.5 ${
@@ -394,6 +413,13 @@ export const Header: React.FC<HeaderProps> = ({
           className={`px-2 py-1 rounded ${currentActiveTab === 'brief' ? 'text-amber-400 font-bold' : 'text-zinc-400'}`}
         >
           5-Min Brief
+        </button>
+        <button
+          onClick={() => handleTabChange('gdg-events')}
+          className={`px-2 py-1 rounded flex items-center gap-1 ${currentActiveTab === 'gdg-events' ? 'text-blue-400 font-bold' : 'text-zinc-400'}`}
+        >
+          <span>GDG</span>
+          <span className="text-[9px] px-1 py-0.2 rounded bg-blue-500/20 text-blue-400 font-mono">IN</span>
         </button>
         <button
           onClick={() => handleTabChange('personalized')}

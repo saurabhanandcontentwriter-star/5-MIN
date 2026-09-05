@@ -1,6 +1,6 @@
 {
   "name": "5MIN Tech Wire & SEO Copilot",
-  "description": "Live breaking technology wire, Google SEO shifts, and AI updates with audio speed controls, running flash news, multi-language translation, and AI Copilot chat bot.",
+  "description": "Live breaking technology wire, Google SEO shifts, Google Developer Group (GDG) India news & events, AI updates with audio speed controls, running flash news, multi-language translation, and AI Copilot chat bot.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

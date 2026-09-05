@@ -1,6 +1,211 @@
-import { NewsStory, IngestionSource, UserSubscriptionTier, Category } from '../types';
+import { NewsStory, IngestionSource, UserSubscriptionTier, Category, GDGEvent } from '../types';
 
 export const INITIAL_STORIES: NewsStory[] = [
+  {
+    id: 'story-gdg-1',
+    title: 'Google Developer Groups (GDG) India Announces DevFest 2026 Across 35 Cities: 50,000+ Engineers to Build with Gemini 2.5 & Gemma 3',
+    slug: 'gdg-india-announces-devfest-2026-season-35-cities',
+    category: 'GDG & Events',
+    summary: 'Google Developer Groups (GDG) India officially revealed the DevFest 2026 tour spanning Bengaluru, New Delhi, Mumbai, Hyderabad, Pune, and 30 more cities, featuring dedicated hackathons for on-device AI, Android 16, and Web SEO.',
+    source: {
+      name: 'Google for Developers India',
+      url: 'https://developers.google.com/community/gdg',
+      reliabilityScore: 99,
+      quote: 'Over 50,000 engineers and student developers will receive hands-on training with Gemma 3 and Gemini Flash API.'
+    },
+    sources: [
+      { name: 'Google for Developers India', url: 'https://developers.google.com/community/gdg', reliabilityScore: 99 },
+      { name: 'The Economic Times Tech', url: 'https://economictimes.indiatimes.com/tech', reliabilityScore: 94 },
+      { name: 'LiveMint India', url: 'https://livemint.com', reliabilityScore: 92 }
+    ],
+    publishedAt: new Date(Date.now() - 1 * 60 * 1000).toISOString(),
+    updatedAt: new Date(Date.now() - 30 * 1000).toISOString(),
+    minutesAgo: 1,
+    importanceScore: 99,
+    velocity: 'breaking',
+    isLive: true,
+    whatChanged: [
+      '35 city chapters opened speaker call (CFP) and attendee pre-registrations simultaneously',
+      'Google announced $500,000 in cloud credits and Gemini API tokens for Indian community projects',
+      'Specialized tracks launched for Indic AI models, Android 16, and SEO Generative Search'
+    ],
+    timeline: [
+      { time: '15:10 IST', title: 'Roadmap keynote broadcast', detail: 'Google for Developers India coordinators publish national schedule.', source: 'Google Devs' },
+      { time: '15:12 IST', title: 'Registrations surpass 5,000', detail: 'Bengaluru, Delhi, and Hyderabad chapters see immediate surge in RSVPs.', source: 'GDG Community' },
+      { time: '15:14 IST', title: 'Gemini credits unlocked', detail: 'Free Gemini 2.5 Flash token grants allocated to community workshop hosts.', source: 'ET Tech' }
+    ],
+    aiContext: {
+      background: 'GDG DevFest is India\'s largest community-led developer festival series, run voluntarily by local tech leaders and Google Developer Experts (GDEs).',
+      whyItMatters: 'India represents Google\'s fastest-growing developer ecosystem with over 5.2 million software engineers adopting generative AI architectures.',
+      outlook: 'Dozens of high-growth Indian startups are expected to spin out from DevFest hackathons and hack nights this season.',
+      sentiment: 'bullish',
+      confidenceScore: 98
+    },
+    entities: ['GDG India', 'DevFest 2026', 'Google for Developers', 'Gemini 2.5', 'Bengaluru', 'New Delhi', 'Hyderabad'],
+    topic: 'Google Developer Groups & Community',
+    image: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1200&auto=format&fit=crop&q=80',
+    readTime: '2 min read',
+    viewsCount: 8420,
+    seo: {
+      title: 'GDG DevFest India 2026 Announced Across 35 Cities - 5Min News Live',
+      metaDescription: 'Google Developer Groups India launches DevFest 2026 with Gemini 2.5 and Gemma 3 AI tracks in Bengaluru, Delhi, Hyderabad, and Mumbai.',
+      canonicalUrl: 'https://5minnews.io/news/gdg/gdg-india-announces-devfest-2026-season-35-cities',
+      keywords: ['GDG India', 'DevFest 2026', 'Google for Developers', 'Bengaluru DevFest', 'Gemini API']
+    }
+  },
+  {
+    id: 'story-gdg-2',
+    title: 'Google I/O Connect India 2026 Dates Confirmed for Bengaluru: Spotlighting Indic AI & Multimodal Search',
+    slug: 'google-io-connect-india-2026-confirmed-bengaluru-ktpo',
+    category: 'GDG & Events',
+    summary: 'Google confirmed its premier Google I/O Connect India 2026 at KTPO Whitefield, Bengaluru, presenting deep technical sessions on Project Vaani, Bhashini Indic LLMs, and real-time Gemini Multimodal Live API.',
+    source: {
+      name: 'Google Developers Blog',
+      url: 'https://developers.googleblog.com',
+      reliabilityScore: 99,
+      quote: 'We are bringing Silicon Valley keynotes directly to India with hands-on labs and 1-on-1 architect clinics.'
+    },
+    sources: [
+      { name: 'Google Developers Blog', url: 'https://developers.googleblog.com', reliabilityScore: 99 },
+      { name: 'The Hindu Business Line', url: 'https://thehindubusinessline.com', reliabilityScore: 95 },
+      { name: 'YourStory Media', url: 'https://yourstory.com', reliabilityScore: 92 }
+    ],
+    publishedAt: new Date(Date.now() - 3 * 60 * 1000).toISOString(),
+    updatedAt: new Date(Date.now() - 1 * 60 * 1000).toISOString(),
+    minutesAgo: 3,
+    importanceScore: 97,
+    velocity: 'breaking',
+    isLive: true,
+    whatChanged: [
+      'Google I/O Connect India official registration portal opened for enterprise & community engineers',
+      'Hands-on labs announced for Bhashini multi-lingual Indian speech-to-speech agents',
+      'Google Search Generative Experience (SGE) developer APIs showcased for Indian digital platforms'
+    ],
+    timeline: [
+      { time: '15:00 IST', title: 'Keynote dates confirmed', detail: 'Google Asia-Pacific developer relations leads broadcast keynote confirmation.', source: 'Google Developers' },
+      { time: '15:03 IST', title: 'Session catalogue published', detail: 'Tracks covering Gemma 3, Flutter 3.x, and Firebase Genkit unlocked.', source: 'YourStory' }
+    ],
+    aiContext: {
+      background: 'Following the global Mountain View I/O, Google holds I/O Connect in key developer hubs to focus on country-specific architectures and local language models.',
+      whyItMatters: 'Provides direct access to Google product managers, GDEs, and kernel engineers for Indian developers building at scale.',
+      outlook: 'Anticipated to drive massive adoption of Indic voice AI agents across banking, agriculture, and government tech.',
+      sentiment: 'bullish',
+      confidenceScore: 97
+    },
+    entities: ['Google I/O Connect', 'Bengaluru', 'Indic AI', 'KTPO Whitefield', 'Gemini API', 'GDG Leaders'],
+    topic: 'Google Developer Events India',
+    image: 'https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=1200&auto=format&fit=crop&q=80',
+    readTime: '2 min read',
+    viewsCount: 7120,
+    seo: {
+      title: 'Google I/O Connect India 2026 Dates Announced - 5Min News',
+      metaDescription: 'Google confirms I/O Connect India 2026 in Bengaluru focusing on Indic AI, Multimodal Search, and Android.',
+      canonicalUrl: 'https://5minnews.io/news/gdg/google-io-connect-india-2026-confirmed-bengaluru-ktpo',
+      keywords: ['Google IO Connect', 'IO Connect India', 'Bengaluru Tech', 'Indic AI', 'Google Developers']
+    }
+  },
+  {
+    id: 'story-gdg-3',
+    title: 'GDG Cloud New Delhi & Bengaluru Kick Off "Build with AI" Sprint with 1M Free Gemini Flash API Credits',
+    slug: 'gdg-cloud-delhi-bengaluru-build-with-ai-hackathon',
+    category: 'GDG & Events',
+    summary: 'Over 2,800 developer teams registered within 30 minutes as GDG Cloud chapters launched an intense 48-hour hackathon to build autonomous agentic workflows and local search tools.',
+    source: {
+      name: 'GDG New Delhi Community',
+      url: 'https://gdg.community.dev/gdg-new-delhi',
+      reliabilityScore: 96,
+      quote: 'Top 3 winning teams will be funded to pitch live at Google I/O Connect.'
+    },
+    sources: [
+      { name: 'GDG New Delhi', url: 'https://gdg.community.dev/gdg-new-delhi', reliabilityScore: 96 },
+      { name: 'Devfolio India', url: 'https://devfolio.co', reliabilityScore: 95 },
+      { name: 'Analytics India Mag', url: 'https://analyticsindiamag.com', reliabilityScore: 93 }
+    ],
+    publishedAt: new Date(Date.now() - 5 * 60 * 1000).toISOString(),
+    updatedAt: new Date(Date.now() - 2 * 60 * 1000).toISOString(),
+    minutesAgo: 5,
+    importanceScore: 94,
+    velocity: 'surging',
+    isLive: true,
+    whatChanged: [
+      '1 Million Gemini Flash tokens credited to all approved developer accounts',
+      'Live mentoring streams initiated with 18 Google Developer Experts (GDEs)',
+      'Automated judging rubric deployed on GitHub measuring latency, security, and UI craft'
+    ],
+    timeline: [
+      { time: '14:50 IST', title: 'Problem statements unlocked', detail: 'Tracks across Healthcare, Agritech, and SEO Generative Search go live.', source: 'Devfolio' },
+      { time: '14:55 IST', title: 'Cloud sandbox active', detail: 'Serverless Firebase Genkit endpoints initialized by 1,200 teams.', source: 'GDG Cloud' }
+    ],
+    aiContext: {
+      background: '"Build with AI" is a worldwide GDG initiative enabling developers of all skill levels to master frontier LLMs and vector search.',
+      whyItMatters: 'Democratizes access to Google\'s most powerful reasoning models for early-stage engineering students and independent makers.',
+      outlook: 'Prototypes will be open-sourced on GitHub with production templates for the Indian developer ecosystem.',
+      sentiment: 'bullish',
+      confidenceScore: 94
+    },
+    entities: ['GDG Cloud', 'New Delhi', 'Build with AI', 'Hackathon', 'Gemini API', 'GDE'],
+    topic: 'GDG Hackathons & Sprints',
+    image: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1200&auto=format&fit=crop&q=80',
+    readTime: '1.5 min read',
+    viewsCount: 5290,
+    seo: {
+      title: 'GDG Build with AI India Hackathon Launches - 5Min News',
+      metaDescription: 'GDG Cloud New Delhi and Bengaluru launch Build with AI hackathon with 1M Gemini API credits.',
+      canonicalUrl: 'https://5minnews.io/news/gdg/gdg-cloud-delhi-bengaluru-build-with-ai-hackathon',
+      keywords: ['GDG Cloud', 'Build with AI', 'Hackathon India', 'Gemini Credits', 'Devfolio']
+    }
+  },
+  {
+    id: 'story-gdg-4',
+    title: 'Google Developer Student Clubs (GDSC) India 2026 Solution Challenge Finalists Selected',
+    slug: 'gdsc-india-solution-challenge-2026-finalists-announced',
+    category: 'GDG & Events',
+    summary: 'Collegiate developer teams from IIT Madras, NIT Surathkal, and BITS Pilani clinched top spots in the national finals for developing offline-first solar microgrid and crop disease diagnosis AI using TensorFlow Lite.',
+    source: {
+      name: 'Google for Developers Education',
+      url: 'https://developers.google.com/community/gdsc',
+      reliabilityScore: 98,
+      quote: 'Indian university developers submitted over 3,400 solutions addressing UN Sustainable Development Goals.'
+    },
+    sources: [
+      { name: 'Google for Developers', url: 'https://developers.google.com/community/gdsc', reliabilityScore: 98 },
+      { name: 'PIB India Education', url: 'https://pib.gov.in', reliabilityScore: 99 },
+      { name: 'EdTech Review', url: 'https://edtechreview.in', reliabilityScore: 91 }
+    ],
+    publishedAt: new Date(Date.now() - 8 * 60 * 1000).toISOString(),
+    updatedAt: new Date(Date.now() - 4 * 60 * 1000).toISOString(),
+    minutesAgo: 8,
+    importanceScore: 91,
+    velocity: 'developing',
+    isLive: false,
+    whatChanged: [
+      'Top 10 Indian finalist teams awarded $25,000 equity-free incubation grants',
+      'Mentorship pairing completed with senior Google product engineers',
+      'Solutions demonstrated 94% diagnostic accuracy on edge mobile devices without internet'
+    ],
+    timeline: [
+      { time: '14:30 IST', title: 'Finalists announced live', detail: 'Jury evaluation results declared on Google for Developers YouTube channel.', source: 'Google Devs' },
+      { time: '14:40 IST', title: 'Global showcase slated', detail: 'Final teams move forward to global competition in October 2026.', source: 'PIB' }
+    ],
+    aiContext: {
+      background: 'The annual GDSC Solution Challenge invites university students to develop solutions for local community challenges using Google technologies.',
+      whyItMatters: 'Highlights the immense technical depth and social innovation emerging from Indian engineering universities.',
+      outlook: 'Finalist projects frequently transition into venture-backed tech startups upon graduation.',
+      sentiment: 'bullish',
+      confidenceScore: 95
+    },
+    entities: ['GDSC India', 'Solution Challenge', 'TensorFlow Lite', 'IIT Madras', 'Google Cloud'],
+    topic: 'Student Developers & Innovation',
+    image: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=1200&auto=format&fit=crop&q=80',
+    readTime: '2 min read',
+    viewsCount: 4120,
+    seo: {
+      title: 'GDSC India Solution Challenge 2026 Finalists - 5Min News',
+      metaDescription: 'Indian university teams advance to global finals in Google Developer Student Clubs Solution Challenge 2026.',
+      canonicalUrl: 'https://5minnews.io/news/gdg/gdsc-india-solution-challenge-2026-finalists-announced',
+      keywords: ['GDSC India', 'Solution Challenge', 'Student Developers', 'TensorFlow', 'Google Cloud']
+    }
+  },
   {
     id: 'story-1',
     title: 'OpenAI Releases Autonomous Agent Framework with Sub-50ms Latency',
@@ -519,6 +724,8 @@ export const INITIAL_STORIES: NewsStory[] = [
 ];
 
 export const INGESTION_SOURCES: IngestionSource[] = [
+  { id: 'src-gdg-1', name: 'Google for Developers India Blog', category: 'GDG & Events', feedUrl: 'https://developers.googleblog.com', fetchIntervalMinutes: 2, status: 'online', lastPolled: '45s ago', storiesLastHour: 32, reliability: 99 },
+  { id: 'src-gdg-2', name: 'GDG India Community Wire', category: 'GDG & Events', feedUrl: 'https://gdg.community.dev/india', fetchIntervalMinutes: 2, status: 'online', lastPolled: '1 min ago', storiesLastHour: 28, reliability: 98 },
   { id: 'src-1', name: 'Reuters Tech Wire', category: 'Technology', feedUrl: 'https://reuters.com/technology/rss', fetchIntervalMinutes: 1, status: 'online', lastPolled: '45s ago', storiesLastHour: 54, reliability: 99 },
   { id: 'src-2', name: 'Search Engine Land (SEO)', category: 'SEO', feedUrl: 'https://searchengineland.com/feed', fetchIntervalMinutes: 1, status: 'online', lastPolled: '30s ago', storiesLastHour: 28, reliability: 98 },
   { id: 'src-3', name: 'TechCrunch Realtime', category: 'Technology', feedUrl: 'https://techcrunch.com/feed', fetchIntervalMinutes: 2, status: 'online', lastPolled: '2 min ago', storiesLastHour: 24, reliability: 95 },
@@ -529,6 +736,205 @@ export const INGESTION_SOURCES: IngestionSource[] = [
   { id: 'src-8', name: 'Ars Technica Frontier Lab', category: 'AI', feedUrl: 'https://arstechnica.com/feed', fetchIntervalMinutes: 3, status: 'online', lastPolled: '2 min ago', storiesLastHour: 19, reliability: 94 }
 ];
 
+export const GDG_INDIA_EVENTS: GDGEvent[] = [
+  {
+    id: 'gdg-evt-1',
+    title: 'GDG DevFest Bengaluru 2026: The AI & Mobile Flagship',
+    organizer: 'GDG Bengaluru',
+    city: 'Bengaluru',
+    state: 'Karnataka',
+    date: 'Saturday, Oct 10, 2026',
+    time: '09:00 AM - 06:00 PM IST',
+    venue: 'KTPO Whitefield Convention Center, Bengaluru',
+    format: 'In-Person',
+    type: 'DevFest 2026',
+    status: 'Registration Open',
+    attendeesCount: 3200,
+    capacity: 3500,
+    description: 'India\'s largest annual Google developer festival. Keynote on Gemini 2.5 Flash, Gemma 3 on-device inference, Android 16 APIs, and Web SEO architecture.',
+    topics: ['Gemini 2.5', 'Gemma 3', 'Android 16', 'Firebase Genkit', 'Web & Core Vitals'],
+    speakers: [
+      { name: 'Dr. Arvind Sharma', role: 'Staff ML Engineer', company: 'Google DeepMind India', isGDE: false },
+      { name: 'Pooja Sundaram', role: 'Google Developer Expert (Android)', company: 'Swiggy', isGDE: true },
+      { name: 'Karthik Ramanathan', role: 'Staff Cloud Architect', company: 'Google Cloud India', isGDE: false },
+      { name: 'Ananya Deshmukh', role: 'GDE in Web Technologies & SEO', company: 'Flipkart', isGDE: true },
+    ],
+    rsvpUrl: 'https://gdg.community.dev/events/details/google-gdg-bengaluru-presents-devfest-bengaluru-2026/',
+    isFeatured: true,
+    badge: 'Flagship DevFest',
+  },
+  {
+    id: 'gdg-evt-2',
+    title: 'Google I/O Connect India 2026: Indic AI & Cloud Architecture',
+    organizer: 'Google for Developers India',
+    city: 'Bengaluru',
+    state: 'Karnataka',
+    date: 'Wednesday, Nov 18, 2026',
+    time: '08:30 AM - 07:00 PM IST',
+    venue: 'Bangalore International Exhibition Centre (BIEC), Bengaluru',
+    format: 'Hybrid',
+    type: 'Google I/O Connect',
+    status: 'Filling Fast',
+    attendeesCount: 3850,
+    capacity: 4000,
+    description: 'Official Google for Developers marquee summit in India. Featuring live keynotes from Mountain View and Bengaluru leadership, Project Vaani speech datasets, and 1-on-1 architect labs.',
+    topics: ['Indic LLMs', 'Project Vaani', 'Vertex AI', 'Flutter 3.x', 'Google Search AI Overviews'],
+    speakers: [
+      { name: 'Sanjay Gupta', role: 'Country Head & VP', company: 'Google India', isGDE: false },
+      { name: 'Nithya Sambasivan', role: 'Principal AI Scientist', company: 'Google Research India', isGDE: false },
+      { name: 'Varun Joshi', role: 'GDE in Machine Learning', company: 'Zomato', isGDE: true },
+    ],
+    rsvpUrl: 'https://io.google/2026/connect/india',
+    isFeatured: true,
+    badge: 'Official Google Marquee',
+  },
+  {
+    id: 'gdg-evt-3',
+    title: 'GDG DevFest New Delhi 2026: Capital Tech & AI Agents',
+    organizer: 'GDG New Delhi',
+    city: 'New Delhi',
+    state: 'Delhi NCR',
+    date: 'Sunday, Oct 25, 2026',
+    time: '09:30 AM - 05:30 PM IST',
+    venue: 'India Habitat Centre, Lodhi Road, New Delhi',
+    format: 'In-Person',
+    type: 'DevFest 2026',
+    status: 'Registration Open',
+    attendeesCount: 2400,
+    capacity: 2800,
+    description: 'DevFest New Delhi unites 2,800 developers across Delhi NCR. Deep dives into autonomous multi-agent systems, Vertex AI Studio, and Next.js + Cloud Run microservices.',
+    topics: ['Autonomous Agents', 'Gemini API', 'Cloud Run', 'Generative SEO', 'Golang'],
+    speakers: [
+      { name: 'Rahul Singhal', role: 'Lead Developer Relations Engineer', company: 'Google India', isGDE: false },
+      { name: 'Megha Agarwal', role: 'Google Developer Expert (Cloud)', company: 'Paytm', isGDE: true },
+      { name: 'Tanmay Saxena', role: 'Founder & CTO', company: 'IndicAgent Labs', isGDE: true },
+    ],
+    rsvpUrl: 'https://gdg.community.dev/events/details/google-gdg-new-delhi-presents-devfest-delhi-2026/',
+    isFeatured: true,
+    badge: 'Delhi NCR Premier',
+  },
+  {
+    id: 'gdg-evt-4',
+    title: 'GDG Cloud Community Day Hyderabad 2026: Enterprise GenAI Scale',
+    organizer: 'GDG Cloud Hyderabad',
+    city: 'Hyderabad',
+    state: 'Telangana',
+    date: 'Saturday, Nov 07, 2026',
+    time: '09:00 AM - 05:00 PM IST',
+    venue: 'Hyderabad International Convention Centre (HICC), HITEC City',
+    format: 'In-Person',
+    type: 'Cloud Community Day',
+    status: 'Closing Soon',
+    attendeesCount: 2150,
+    capacity: 2200,
+    description: 'Largest cloud computing community event in South India. Focus on Kubernetes, Spanner, high-concurrency vector databases, and enterprise Gemini deployments.',
+    topics: ['Google Cloud Platform', 'BigQuery Vector', 'Kubernetes GKE', 'Microservices', 'DevOps'],
+    speakers: [
+      { name: 'Venkatesh Rao', role: 'Distinguished Engineer', company: 'Microsoft / Former Google', isGDE: false },
+      { name: 'Deepika Reddy', role: 'Google Developer Expert (Cloud & AI)', company: 'Wipro AI Practice', isGDE: true },
+    ],
+    rsvpUrl: 'https://gdg.community.dev/events/details/google-gdg-cloud-hyderabad-presents-ccd-2026/',
+    isFeatured: false,
+    badge: 'HITEC Tech Summit',
+  },
+  {
+    id: 'gdg-evt-5',
+    title: 'GDG DevFest Mumbai 2026: Fintech & On-Device Gemma',
+    organizer: 'GDG Mumbai',
+    city: 'Mumbai',
+    state: 'Maharashtra',
+    date: 'Saturday, Nov 14, 2026',
+    time: '10:00 AM - 06:00 PM IST',
+    venue: 'NESCO Center, Western Express Hwy, Goregaon East, Mumbai',
+    format: 'In-Person',
+    type: 'DevFest 2026',
+    status: 'Registration Open',
+    attendeesCount: 1850,
+    capacity: 2000,
+    description: 'Mumbai\'s annual flagship developer gathering exploring on-device fraud prevention using Gemma 3, UPI & Android biometric APIs, and real-time algorithmic trading architectures.',
+    topics: ['Fintech AI', 'Gemma 3 Local', 'Android Security', 'WebAssembly', 'Firebase'],
+    speakers: [
+      { name: 'Amitabh Mehta', role: 'VP Engineering', company: 'Jio Payments', isGDE: true },
+      { name: 'Shruti Kulkarni', role: 'Staff Security Researcher', company: 'Google Cloud Security', isGDE: false },
+    ],
+    rsvpUrl: 'https://gdg.community.dev/events/details/google-gdg-mumbai-presents-devfest-mumbai-2026/',
+    isFeatured: false,
+    badge: 'Mumbai Flagship',
+  },
+  {
+    id: 'gdg-evt-6',
+    title: 'GDG DevFest Pune 2026: Open Source & Platform Engineering',
+    organizer: 'GDG Pune',
+    city: 'Pune',
+    state: 'Maharashtra',
+    date: 'Sunday, Nov 22, 2026',
+    time: '09:30 AM - 05:30 PM IST',
+    venue: 'Shree Shiv Chhatrapati Sports Complex, Balewadi, Pune',
+    format: 'In-Person',
+    type: 'DevFest 2026',
+    status: 'Registration Open',
+    attendeesCount: 1600,
+    capacity: 1800,
+    description: 'Pune developer festival bringing together automotive software developers, SaaS founders, and cloud engineers. 4 parallel tracks on AI, Cloud, Mobile, and Web.',
+    topics: ['Platform Engineering', 'Android Automotive', 'Go & Rust', 'TensorFlow', 'DevOps'],
+    speakers: [
+      { name: 'Nilesh Patil', role: 'Principal Architect', company: 'Tata Technologies', isGDE: true },
+      { name: 'Snehal Joshi', role: 'Senior Developer Advocate', company: 'Google', isGDE: false },
+    ],
+    rsvpUrl: 'https://gdg.community.dev/events/details/google-gdg-pune-presents-devfest-pune-2026/',
+    isFeatured: false,
+    badge: 'Pune Tech Fest',
+  },
+  {
+    id: 'gdg-evt-7',
+    title: 'Women Techmakers (WTM) India AI Leadership Summit 2026',
+    organizer: 'Women Techmakers India / GDG',
+    city: 'Gurugram',
+    state: 'Haryana',
+    date: 'Saturday, Sep 26, 2026',
+    time: '10:00 AM - 04:30 PM IST',
+    venue: 'Google Gurugram Campus, Sector 15, Gurugram',
+    format: 'Hybrid',
+    type: 'Women Techmakers',
+    status: 'Filling Fast',
+    attendeesCount: 1100,
+    capacity: 1200,
+    description: 'Empowering women engineers, tech founders, and leaders with cutting-edge workshops in Gemini reasoning models, startup pitching, and executive tech mentorship.',
+    topics: ['Women in AI', 'Tech Leadership', 'GenAI Tools', 'Career Acceleration', 'GDE Mentorship'],
+    speakers: [
+      { name: 'Dr. Radhika Sen', role: 'Director of AI Research', company: 'Google India', isGDE: false },
+      { name: 'Shreya Bhat', role: 'Founder & GDE', company: 'AI For Good India', isGDE: true },
+    ],
+    rsvpUrl: 'https://womentechmakers.com/events/india-summit-2026',
+    isFeatured: true,
+    badge: 'National WTM Summit',
+  },
+  {
+    id: 'gdg-evt-8',
+    title: 'GDG Build with AI Sprint & Hackathon Kolkata 2026',
+    organizer: 'GDG Kolkata',
+    city: 'Kolkata',
+    state: 'West Bengal',
+    date: 'Saturday, Oct 17, 2026',
+    time: '09:00 AM - 06:00 PM IST',
+    venue: 'Biswa Bangla Convention Centre, New Town, Kolkata',
+    format: 'In-Person',
+    type: 'Build with AI',
+    status: 'Registration Open',
+    attendeesCount: 1350,
+    capacity: 1500,
+    description: 'Hands-on AI building day. Every attendee receives 1 Million free Gemini Flash tokens to build live solutions for Bengali voice assistants and disaster resilience analytics.',
+    topics: ['Gemini 2.5 Flash', 'Bengali NLP', 'Firebase Studio', 'Python AI', 'Civic Tech'],
+    speakers: [
+      { name: 'Sourav Mukherjee', role: 'GDE in Machine Learning', company: 'Kolkata AI Lab', isGDE: true },
+      { name: 'Debjani Roy', role: 'Cloud Customer Engineer', company: 'Google Cloud India', isGDE: false },
+    ],
+    rsvpUrl: 'https://gdg.community.dev/events/details/google-gdg-kolkata-presents-build-with-ai-kolkata-2026/',
+    isFeatured: false,
+    badge: 'East India AI Sprint',
+  }
+];
+
 export const SUBSCRIPTION_TIERS: UserSubscriptionTier[] = [
   {
     id: 'free',
@@ -537,9 +943,9 @@ export const SUBSCRIPTION_TIERS: UserSubscriptionTier[] = [
     billingPeriod: 'Forever free',
     features: [
       'Live 5-minute technology feed',
-      'AI, SEO & Semiconductor channels',
+      'AI, SEO, GDG India & Semiconductor channels',
       'Top 5-minute brief previews',
-      'Flash running news ticker',
+      'Flash running news ticker with audio',
       'Standard search & reference links'
     ]
   },
@@ -552,11 +958,11 @@ export const SUBSCRIPTION_TIERS: UserSubscriptionTier[] = [
     features: [
       'Everything in Free',
       'Unlimited AI Chatbot Copilot conversations',
-      'Instant Google SEO Algorithm & Core Update Alerts',
+      'Instant Google SEO & GDG India Event Alerts',
       'Personalized custom topics & entity tracker',
       'Morning (8:00 AM) & Evening (6:00 PM) AI Briefs',
       'Full Multi-Language Translation (National & Global)',
-      'Audio Briefing TTS Player with voice selection',
+      'Audio Briefing TTS Player with voice & speed controls',
       'Sub-60 second wire ingestion speed'
     ]
   },
@@ -591,25 +997,29 @@ export const SUBSCRIPTION_TIERS: UserSubscriptionTier[] = [
 ];
 
 export const TRENDING_TAGS = [
-  { tag: '#OpenAI', count: '1.6k stories', change: '+88% velocity', category: 'AI' },
+  { tag: '#GDGIndia', count: '2.1k stories', change: '+180% velocity', category: 'GDG & Events' },
+  { tag: '#DevFest2026', count: '1.8k stories', change: '+165% velocity', category: 'GDG & Events' },
+  { tag: '#GoogleIOConnect', count: '1.4k stories', change: '+125% velocity', category: 'GDG & Events' },
   { tag: '#GoogleSEO', count: '1.2k stories', change: '+140% velocity', category: 'SEO' },
+  { tag: '#OpenAI', count: '1.6k stories', change: '+88% velocity', category: 'AI' },
   { tag: '#Claude3.7', count: '980 stories', change: '+75% velocity', category: 'AI' },
   { tag: '#IndiaTech', count: '840 stories', change: '+62% velocity', category: 'India Tech' },
   { tag: '#NVIDIA', count: '760 stories', change: '+48% velocity', category: 'Technology' },
-  { tag: '#CyberZeroDay', count: '630 stories', change: '+115% velocity', category: 'Cybersecurity' },
   { tag: '#GEO', count: '520 stories', change: '+94% velocity', category: 'SEO' }
 ];
 
 export const CATEGORIES: Category[] = [
   'All',
+  'GDG & Events',
+  'India Tech',
   'AI',
   'Technology',
   'SEO',
   'Cybersecurity',
   'Startups',
-  'India Tech',
   'Global Tech',
   'DevTools',
   'Markets',
 ];
+
 

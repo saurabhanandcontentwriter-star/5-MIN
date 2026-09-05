@@ -4,6 +4,7 @@ import {
   INGESTION_SOURCES,
   TRENDING_TAGS,
   CATEGORIES,
+  GDG_INDIA_EVENTS,
 } from './data/newsStories';
 import { NewsStory, Category, IngestionSource } from './types';
 import { Header } from './components/Header';
@@ -22,6 +23,7 @@ import { SearchFilterModal } from './components/SearchFilterModal';
 import { FlashRunningNews } from './components/FlashRunningNews';
 import { AIChatBot } from './components/AIChatBot';
 import { AudioPlayerDock, AudioPlayerState } from './components/AudioPlayerDock';
+import { GDGEventsHub } from './components/GDGEventsHub';
 import { SupportedLanguage } from './types';
 import { RefreshCw, Radio, Sparkles, Volume2, ShieldCheck, Heart } from 'lucide-react';
 
@@ -551,6 +553,65 @@ export default function App() {
             isDark={isDark}
             onPlayAudioBrief={handlePlayAudioBrief}
             isPlayingAudio={isPlayingAudio}
+          />
+        )}
+
+        {activeNav === 'gdg-events' && (
+          <GDGEventsHub
+            events={GDG_INDIA_EVENTS}
+            gdgNews={stories.filter((s) => s.category === 'GDG & Events')}
+            onSelectStory={(s) => setSelectedStory(s)}
+            onOpenChatWithEvent={(evt) => {
+              setActiveChatStory({
+                id: evt.id,
+                title: `${evt.title} (${evt.city})`,
+                slug: `gdg-event-${evt.id}`,
+                category: 'GDG & Events',
+                summary: `${evt.title} organized by ${evt.organizer} on ${evt.date} at ${evt.venue}. Description: ${evt.description}. Topics: ${evt.topics.join(', ')}. Keynote speakers: ${evt.speakers.map((s) => `${s.name} (${s.company}${s.isGDE ? ', GDE' : ''})`).join(', ')}.`,
+                source: { name: evt.organizer, url: evt.rsvpUrl, reliabilityScore: 99 },
+                sources: [{ name: evt.organizer, url: evt.rsvpUrl, reliabilityScore: 99 }],
+                publishedAt: new Date().toISOString(),
+                updatedAt: new Date().toISOString(),
+                minutesAgo: 1,
+                importanceScore: 96,
+                velocity: 'surging',
+                isLive: true,
+                whatChanged: [
+                  `Status: ${evt.status} (${evt.attendeesCount} / ${evt.capacity} seats filled)`,
+                  `Keynotes: ${evt.speakers.map((s) => s.name).join(', ')}`,
+                  `Format: ${evt.format} at ${evt.venue}`,
+                ],
+                timeline: [{ time: evt.time, title: evt.date, detail: evt.venue, source: evt.organizer }],
+                aiContext: {
+                  background: evt.description,
+                  whyItMatters: `Connects Indian developers with Google technologies including Gemini 2.5 Flash, Gemma 3, and Android 16.`,
+                  sentiment: 'bullish',
+                  confidenceScore: 98,
+                },
+                entities: [evt.city, evt.organizer, ...evt.topics],
+                topic: evt.type,
+                image: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1200&auto=format&fit=crop&q=80',
+                readTime: '2 min read',
+                viewsCount: evt.attendeesCount,
+              });
+              setIsChatBotOpen(true);
+            }}
+            onPlayAudioForEvent={(evt) => {
+              if (!('speechSynthesis' in window)) {
+                alert('Speech synthesis is not supported in this browser.');
+                return;
+              }
+              const text = `Google Developer Event briefing for India. ${evt.title}. Organized by ${evt.organizer}. Taking place on ${evt.date} from ${evt.time} at ${evt.venue}. Description: ${evt.description}. Key topics include ${evt.topics.join(', ')}. Keynote speakers include ${evt.speakers.map((s) => `${s.name} from ${s.company}`).join(', ')}. Registration status is currently ${evt.status} with ${evt.attendeesCount} out of ${evt.capacity} seats reserved.`;
+              audioQueueRef.current = [
+                {
+                  title: evt.title,
+                  category: 'GDG & Events',
+                  text,
+                },
+              ];
+              speakItem(0, audioState.speed || 1.0);
+            }}
+            isDark={isDark}
           />
         )}
 

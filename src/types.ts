@@ -3,6 +3,7 @@ export type Category =
   | 'Technology'
   | 'AI'
   | 'SEO'
+  | 'GDG & Events'
   | 'Cybersecurity'
   | 'Startups'
   | 'India Tech'
@@ -158,3 +159,42 @@ export interface UserPreferences {
   viewMode: 'compact' | 'editorial' | 'cards';
   soundEnabled: boolean;
 }
+
+export type GDGEventType =
+  | 'DevFest 2026'
+  | 'Google I/O Connect'
+  | 'Build with AI'
+  | 'Cloud Community Day'
+  | 'Women Techmakers'
+  | 'Solution Challenge';
+
+export interface GDGEventSpeaker {
+  name: string;
+  role: string;
+  company: string;
+  isGDE?: boolean; // Google Developer Expert
+  avatarUrl?: string;
+}
+
+export interface GDGEvent {
+  id: string;
+  title: string;
+  organizer: string; // e.g., 'GDG Bengaluru', 'GDG New Delhi', 'Google for Developers India'
+  city: string; // 'Bengaluru', 'New Delhi', 'Hyderabad', 'Mumbai', 'Pune', 'Chennai', etc.
+  state: string;
+  date: string;
+  time: string;
+  venue: string;
+  format: 'In-Person' | 'Hybrid' | 'Online';
+  type: GDGEventType;
+  status: 'Registration Open' | 'Filling Fast' | 'Waitlist' | 'Closing Soon';
+  attendeesCount: number;
+  capacity: number;
+  description: string;
+  topics: string[];
+  speakers: GDGEventSpeaker[];
+  rsvpUrl: string;
+  isFeatured?: boolean;
+  badge?: string;
+}
+

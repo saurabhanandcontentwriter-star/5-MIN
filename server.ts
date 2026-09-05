@@ -3,7 +3,7 @@ import path from 'path';
 import dotenv from 'dotenv';
 import { GoogleGenAI } from '@google/genai';
 import { createServer as createViteServer } from 'vite';
-import { INITIAL_STORIES, INGESTION_SOURCES, TRENDING_TAGS } from './src/data/newsStories';
+import { INITIAL_STORIES, INGESTION_SOURCES, TRENDING_TAGS, GDG_INDIA_EVENTS } from './src/data/newsStories';
 import { NewsStory, IngestionPipelineMetric, IngestionSource } from './src/types';
 
 dotenv.config();
@@ -137,6 +137,24 @@ app.get('/api/brief', (req, res) => {
 // GET /api/trending - Trending tags
 app.get('/api/trending', (req, res) => {
   res.json({ trending: TRENDING_TAGS });
+});
+
+// GET /api/gdg-events - Google Developer Group (GDG) India events
+app.get('/api/gdg-events', (req, res) => {
+  const { city, type } = req.query;
+  let events = [...GDG_INDIA_EVENTS];
+  if (city && city !== 'All Cities') {
+    events = events.filter((e) => e.city.toLowerCase() === String(city).toLowerCase());
+  }
+  if (type && type !== 'All Types') {
+    events = events.filter((e) => e.type.toLowerCase() === String(type).toLowerCase());
+  }
+  res.json({
+    count: events.length,
+    events,
+    totalChaptersIndia: 65,
+    communitySize: '250,000+',
+  });
 });
 
 // POST /api/gemini/summarize - Real-time AI 5-minute summarization
@@ -279,22 +297,23 @@ app.post('/api/gemini/chat', async (req, res) => {
 
   if (ai) {
     try {
-      const prompt = `You are "5Min Tech & SEO Copilot", a cutting-edge real-time technology, AI, and SEO intelligence assistant.
-You specialize strictly in Technology, Artificial Intelligence, Google Core Search & SEO Updates, Generative Engine Optimization (GEO), Semiconductors, Startups, and Cloud Architecture.
+      const prompt = `You are "5Min Tech & SEO Copilot", a cutting-edge real-time technology, AI, SEO, and Google Developer Groups (GDG) intelligence assistant.
+You specialize strictly in Technology, Artificial Intelligence, Google Developer Groups (GDG) India, DevFest 2026, Google I/O Connect India, Google Core Search & SEO Updates, Generative Engine Optimization (GEO), Semiconductors, Startups, and Cloud Architecture.
 
 Target Language for Response: ${targetLang} (You MUST reply fluently in this language).
 
-Current Live 5-Minute Stories Context:
-${context || 'Latest verified technology headlines active on 5Min News wire.'}
+Current Live 5-Minute Stories & GDG Events Context:
+${context || 'Latest verified technology headlines and Google Developer Groups India events active on 5Min News wire.'}
 
 User Query: "${message}"
 
 Guidelines:
 1. Provide a sharp, insightful, and factual briefing in ${targetLang}.
-2. If asked about SEO: explain Google core updates, helpful content, search rankings, INP metrics, or Generative Engine Optimization (GEO).
-3. If asked about AI: reference frontier LLMs, autonomous agents, inference latency, NVIDIA Blackwell, OpenAI, or Claude 3.7.
-4. If asked about tech startups or semiconductors: detail funding rounds, chip architectures, TSMC packaging, and cloud scalability.
-5. Format with clear bullet points where helpful.`;
+2. If asked about GDG (Google Developer Groups) or Events in India: explain upcoming DevFest 2026 across 35 cities (Bengaluru, New Delhi, Hyderabad, Mumbai, Pune, Kolkata, Chennai), Google I/O Connect India 2026 at KTPO Bengaluru, Build with AI hackathons, free Gemini API token grants, Women Techmakers summits, and Google Developer Experts (GDEs).
+3. If asked about SEO: explain Google core updates, helpful content, search rankings, INP metrics, or Generative Engine Optimization (GEO).
+4. If asked about AI: reference frontier LLMs, autonomous agents, inference latency, Gemini 2.5 Flash, Gemma 3, NVIDIA Blackwell, OpenAI, or Claude 3.7.
+5. If asked about tech startups or semiconductors: detail funding rounds, chip architectures, TSMC packaging, and cloud scalability.
+6. Format with clear bullet points where helpful.`;
 
       const response = await ai.models.generateContent({
         model: 'gemini-2.5-flash',
@@ -317,31 +336,35 @@ Guidelines:
   let fallbackReply = '';
 
   if (language === 'hi') {
-    if (lower.includes('seo') || lower.includes('google')) {
+    if (lower.includes('gdg') || lower.includes('devfest') || lower.includes('event') || lower.includes('developer')) {
+      fallbackReply = `🇮🇳 **गूगल डेवलपर ग्रुप्स (GDG) भारत और इवेंट्स अपडेट:**\n\n- **DevFest 2026:** भारत के 35 शहरों (बेंगलुरु, नई दिल्ली, हैदराबाद, मुंबई, पुणे, कोलकाता आदि) में 50,000+ इंजीनियर्स के लिए देवफेस्ट 2026 की घोषणा की गई है।\n- **Google I/O Connect India 2026:** केटीपीओ बेंगलुरु में आधिकारिक सम्मेलन की पुष्टि हुई है, जिसमें इंडिक एआई (Indic AI), भाषिणी मॉडल और जेमिनी मल्टीमॉडल लाइव एपीआई प्रदर्शित होंगे।\n- **Build with AI हैकाथॉन:** जीडीजी क्लाउड चैप्टर्स ने 10 लाख फ्री जेमिनी टोकन्स के साथ 48-घंटे का स्प्रिंट शुरू किया है।\n- **पंजीकरण:** हमारे "GDG & Events" टैब में जाकर किसी भी शहर के इवेंट के लिए निशुल्क RSVP करें!`;
+    } else if (lower.includes('seo') || lower.includes('google')) {
       fallbackReply = `🔍 **गूगल कोर अपडेट और एसईओ विश्लेषण (SEO & GEO):**\n\n- गूगल ने हाल ही में अपने सर्च एल्गोरिदम और AI ओवरव्यू को अपडेट किया है, जिससे प्रथम-पक्ष सत्यापन योग्य स्रोतों को प्राथमिकता दी जा रही है।\n- **जेनेरेटिव इंजन ऑप्टिमाइज़ेशन (GEO)** के तहत विकेंद्रीकृत AI सर्च इंजनों (Perplexity, Claude, Gemini) में साइटेशन बढ़ाने के लिए संरचित स्कीमा और प्रत्यक्ष डेटा आवश्यक हैं।\n- पेज लोडिंग और INP लेटेंसी को 200ms से कम रखने की सिफारिश की गई है।`;
     } else if (lower.includes('ai') || lower.includes('openai') || lower.includes('claude')) {
       fallbackReply = `⚡ **आर्टिफिशियल इंटेलिजेंस और एजेंटिक तकनीक:**\n\n- OpenAI और Anthropic ने सब-50ms लेटेंसी वाले स्वायत्त एजेंट आर्किटेक्चर को सक्रिय किया है।\n- Claude 3.7 Sonnet हाइब्रिड रीज़निंग के साथ कोडिंग बेंचमार्क (SWE-bench 70.3%) में शीर्ष पर है।\n- NVIDIA Blackwell B200 सर्वर अब प्रमुख क्लाउड प्रोवाइडर्स (Azure, AWS, GCP) में डिप्लॉय किए जा रहे हैं।`;
     } else {
-      fallbackReply = `नमस्ते! मैं आपका **5-मिनट टेक और एसईओ कोपायलट** हूँ।\n\nपिछले 5 मिनट में टेक जगत के मुख्य अपडेट्स:\n1. गूगल का नया सर्च एल्गोरिदम रोलआउट सक्रिय है।\n2. OpenAI ऑटोनॉमस एजेंट फ्रेमवर्क लाइव है।\n3. भारत और वैश्विक सेमीकंडक्टर फैब्स में रिकॉर्ड निवेश हो रहा है।\n\nआप किसी भी तकनीकी विषय, AI या एसईओ रणनीति के बारे में पूछ सकते हैं!`;
+      fallbackReply = `नमस्ते! मैं आपका **5-मिनट टेक, GDG और एसईओ कोपायलट** हूँ।\n\nपिछले 5 मिनट में टेक जगत के मुख्य अपडेट्स:\n1. GDG India DevFest 2026 और Google I/O Connect India का कार्यक्रम लाइव है।\n2. गूगल का नया सर्च एल्गोरिदम रोलआउट सक्रिय है।\n3. OpenAI ऑटोनॉमस एजेंट फ्रेमवर्क और जेमिनी 2.5 फ्लैश लाइव हैं।\n\nआप किसी भी इवेंट, AI तकनीक या एसईओ रणनीति के बारे में पूछ सकते हैं!`;
     }
   } else if (language === 'ta') {
-    fallbackReply = `வணக்கம்! இது **5-நிமிட தொழில்நுட்பம் & AI செய்தி கோபைலட்**.\n\nமுக்கிய உடனடி செய்திகள்:\n1. கூகிள் தேடல் வழிமுறைகளில் (Core SEO) புதிய தரவரிசை மாற்றங்கள் ஏற்பட்டுள்ளன.\n2. OpenAI மற்றும் Claude 3.7 அதிவேக செயற்கை நுண்ணறிவு மாதிரிகள் பயன்பாட்டுக்கு வந்துள்ளன.\n3. என்விடியா பிளாக்வெல் சிப்கள் பெரிய டேட்டா சென்டர்களுக்கு அனுப்பப்பட்டு வருகின்றன.`;
+    fallbackReply = `வணக்கம்! இது **5-நிமிட தொழில்நுட்பம், GDG & AI செய்தி கோபைலட்**.\n\nமுக்கிய உடனடி செய்திகள்:\n1. **GDG India DevFest 2026:** பெங்களூரு, சென்னை, டெல்லி உள்ளிட்ட 35 நகரங்களில் Google Developer Groups நிகழ்வுகள் தொடங்கப்பட்டுள்ளன.\n2. **Google I/O Connect India:** பெங்களூரில் இந்திய மொழிகளுக்கான AI மாதிரிகள் (Indic AI) பற்றிய மாநாடு நடைபெறுகிறது.\n3. கூகிள் தேடல் வழிமுறைகளில் (Core SEO) புதிய தரவரிசை மாற்றங்கள் ஏற்பட்டுள்ளன.`;
   } else if (language === 'te') {
-    fallbackReply = `నమస్కారం! ఇది **5-నిమిషాల టెక్నాలజీ & AI న్యూస్ కోపైలట్**.\n\nతాజా 5-నిమిషాల టెక్ అప్‌డేట్స్:\n1. గూగుల్ సెర్చ్ అల్గారిథమ్ (SEO) లో కీలక మార్పులు వచ్చాయి.\n2. OpenAI అటానమస్ ఏజెంట్ ఆర్కిటెక్చర్ వేగవంతమైన ల్యాటెన్సీతో విడుదలైనది.\n3. AI మరియు క్లౌడ్ టెక్నాలజీలో తాజా పరిణామాలు నమోదవుతున్నాయి.`;
+    fallbackReply = `నమస్కారం! ఇది **5-నిమిషాల టెక్నాలజీ, GDG & AI న్యూస్ కోపైలట్**.\n\nతాజా 5-నిమిషాల టెక్ & ఈవెంట్స్ అప్‌డేట్స్:\n1. **GDG DevFest 2026:** హైదరాబాద్, బెంగళూరు, ఢిల్లీ సహా 35 నగరాల్లో 50,000 డెవలపర్లతో దేవ్‌ఫెస్ట్ ప్రారంభమైనది.\n2. **Google I/O Connect India:** బెంగళూరు వేదికగా Indic AI మరియు జెమినీ 2.5 ఫ్లాష్ ప్రదర్శన.\n3. గూగుల్ సెర్చ్ అల్గారిథమ్ (SEO) లో కీలక మార్పులు వచ్చాయి.`;
   } else if (language === 'bn') {
-    fallbackReply = `নমস্কার! আমি আপনার **৫-মিনিট প্রযুক্তি ও এআই কোপাইলট**।\n\nসর্বশেষ ৫ মিনিটের প্রযুক্তিগত আপডেট:\n১. গুগল কোর অ্যালগরিদম ও এসইও (SEO) র‍্যাঙ্কিংয়ে বড় পরিবর্তন এসেছে।\n২. OpenAI এবং Claude 3.7 স্বায়ত্তশাসিত এজেন্ট ফ্রেমওয়ার্ক চালু হয়েছে।\n৩. বিশ্বব্যাপী সেমিকন্ডাক্টর ও ক্লাউড ইনফ্রাস্ট্রাকচারে দ্রুত অগ্রগতি চলছে।`;
+    fallbackReply = `নমস্কার! আমি আপনার **৫-মিনিট প্রযুক্তি, GDG ও এআই কোপাইলট**।\n\nসর্বশেষ ৫ মিনিটের প্রযুক্তিগত আপডেট:\n১. **GDG DevFest 2026:** কলকাতা, দিল্লি এবং বেঙ্গালুরু সহ ৩৫টি শহরে গুগল ডেভেলপার গ্রুপ ফেস্টিভ্যাল শুরু হয়েছে।\n২. **Google I/O Connect India:** বেঙ্গালুরুতে ইন্ডিয়ান ল্যাঙ্গুয়েজ এআই (Indic AI) সামিট অনুষ্ঠিত হচ্ছে।\n৩. গুগল কোর অ্যালগরিদম ও এসইও (SEO) র‍্যাঙ্কিংয়ে বড় পরিবর্তন এসেছে।`;
   } else if (language === 'es') {
-    fallbackReply = `¡Hola! Soy tu **Copiloto de Noticias Tecnológicas y SEO en 5 Minutos**.\n\nÚltimas actualizaciones en tiempo real:\n1. **SEO y Algoritmos:** Google despliega cambios en el algoritmo principal favoreciendo fuentes primarias con baja latencia INP.\n2. **Inteligencia Artificial:** Lanzamiento de frameworks de agentes autónomos con latencia sub-50ms y Claude 3.7 con razonamiento híbrido.\n3. **Hardware:** NVIDIA inicia envíos masivos de racks GB200 Blackwell para centros de datos de IA.`;
+    fallbackReply = `¡Hola! Soy tu **Copiloto de Noticias Tecnológicas, GDG y SEO en 5 Minutos**.\n\nÚltimas actualizaciones en tiempo real:\n1. **GDG India DevFest 2026:** Google Developer Groups anuncia DevFest en 35 ciudades de la India con pistas para Gemini 2.5 y Gemma 3.\n2. **SEO y Algoritmos:** Google despliega cambios en el algoritmo principal favoreciendo fuentes primarias con baja latencia INP.\n3. **Inteligencia Artificial:** Agentes autónomos con latencia sub-50ms y Claude 3.7.`;
   } else if (language === 'fr') {
-    fallbackReply = `Bonjour ! Je suis votre **Copilote Tech & SEO 5-Minutes**.\n\nDernières actualités technologiques vérifiées :\n1. **SEO & Moteurs de Recherche :** Mise à jour majeure de l'algorithme Google avec impact sur les aperçus IA (AI Overviews).\n2. **Frontier AI :** OpenAI et Anthropic déploient des agents autonomes ultrarapides.\n3. **Semi-conducteurs :** Expédition massive des serveurs NVIDIA Blackwell B200 vers les hyperscalers.`;
+    fallbackReply = `Bonjour ! Je suis votre **Copilote Tech, GDG & SEO 5-Minutes**.\n\nDernières actualités technologiques vérifiées :\n1. **GDG India DevFest 2026 :** Google Developer Groups lance la saison DevFest dans 35 villes indiennes et confirme Google I/O Connect à Bangalore.\n2. **SEO & Moteurs de Recherche :** Mise à jour majeure de l'algorithme Google.\n3. **Frontier AI :** Nouveaux déploiements de Gemini 2.5 et d'agents autonomes.`;
   } else {
     // English
-    if (lower.includes('seo') || lower.includes('google') || lower.includes('rank') || lower.includes('geo')) {
+    if (lower.includes('gdg') || lower.includes('devfest') || lower.includes('event') || lower.includes('developer group') || lower.includes('google i/o') || lower.includes('bengaluru') || lower.includes('delhi') || lower.includes('hyderabad')) {
+      fallbackReply = `🇮🇳 **Google Developer Groups (GDG) India & Events Intelligence:**\n\n- **DevFest 2026 Season:** GDG India announced the 2026 tour across 35 cities (including Bengaluru, New Delhi, Hyderabad, Mumbai, Pune, Chennai, and Kolkata) targeting 50,000+ engineers.\n- **Google I/O Connect India 2026:** Scheduled at KTPO Whitefield, Bengaluru. Key focus areas include Indic LLMs (Project Vaani, Bhashini APIs), Gemini 2.5 Multimodal Live API, and Android 16.\n- **"Build with AI" Hackathons:** GDG Cloud New Delhi and Bengaluru unlocked 1 Million Gemini Flash tokens per team for 48-hour sprints with 18 Google Developer Experts (GDEs) mentoring.\n- **Registration:** Check out our dedicated **GDG & Events** tab in the navigation bar to filter events by city, listen to audio summaries, or RSVP directly!`;
+    } else if (lower.includes('seo') || lower.includes('google') || lower.includes('rank') || lower.includes('geo')) {
       fallbackReply = `🔍 **Google Search Core Algorithm & GEO Analysis:**\n\n- **Live Rollout:** Google's current core search update is emphasizing verified first-party citations and sub-200ms Interaction to Next Paint (INP) latency.\n- **Generative Engine Optimization (GEO):** LLM-based search engines (Perplexity, Claude, Gemini) now process over 22% of informational queries. Pages with rich structured JSON-LD and concise entity claims receive 3.2x higher citation frequency.\n- **Recommended Action:** Audit your author entity markup, prune ungrounded synthetic thin pages, and monitor SERP tracking sensors.`;
     } else if (lower.includes('ai') || lower.includes('model') || lower.includes('openai') || lower.includes('claude') || lower.includes('deepseek')) {
       fallbackReply = `⚡ **Frontier AI & Autonomous Agents Update:**\n\n- **OpenAI Agent Framework:** Sub-50ms browser-native orchestration package is published and resolving tool calls with 68% token reduction.\n- **Anthropic Claude 3.7 Sonnet:** Hybrid thinking enables dynamic 0 to 64k token reasoning budgets with verified SWE-bench coding leader status.\n- **Compute Cluster Deployment:** NVIDIA has cleared TSMC CoWoS packaging queues and is dispatching GB200 liquid-cooled racks to Azure, AWS, and GCP.`;
     } else {
-      fallbackReply = `Welcome to **5Min Tech & SEO Copilot**!\n\nHere is your verified 5-minute technology pulse:\n- **SEO:** High SERP volatility detected from Google's core search updates; GEO adoption is surging across enterprise digital teams.\n- **AI & Silicon:** Autonomous agent latency dropped below 50ms; NVIDIA Blackwell GB200 servers are now streaming to global datacenters.\n- **India Tech:** PIB and national incubators report a 42% boost in semiconductor design patents.\n\nAsk me anything about SEO tactics, AI benchmarks, breaking tech stories, or cloud infrastructure!`;
+      fallbackReply = `Welcome to **5Min Tech, GDG & SEO Copilot**!\n\nHere is your verified 5-minute technology pulse:\n- **GDG & Events India:** 35 DevFest cities announced; Google I/O Connect Bengaluru dates confirmed with Indic AI focus.\n- **SEO:** High SERP volatility detected from Google's core search updates; GEO adoption is surging across enterprise digital teams.\n- **AI & Silicon:** Autonomous agent latency dropped below 50ms; NVIDIA Blackwell GB200 servers are now streaming to global datacenters.\n\nAsk me anything about GDG events, devfest schedules, SEO tactics, AI benchmarks, or breaking tech stories!`;
     }
   }
 
